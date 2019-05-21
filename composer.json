@@ -1,0 +1,29 @@
+{
+    "name": "hellpers/error",
+    "description": "Перехват и логирование ошибок и исключений",
+    "minimum-stability": "dev",
+    "keywords": [
+        "adikalon",
+        "hellpers",
+        "error"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/adikalon/error",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "adikalon",
+            "homepage": "https://github.com/adikalon/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.3.0",
+        "hellpers/logger": "1.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hellpers\\": "src/"
+        }
+    }
+}
