@@ -22,7 +22,7 @@ class Error
     private $path = '';
 
     /**
-     * @var type Имя файла, в который будет писаться лог
+     * @var string Имя файла, в который будет писаться лог
      */
     private $file = '';
 
@@ -38,11 +38,20 @@ class Error
 
     /**
      * Приватим конструктор. Устанавливаем перехватчики для ошибок и исключений
+     * 
+     * @param int|null $level (optional) Уровень перехвата ошибок
      */
-    private function __construct()
+    private function __construct(?int $level = null)
     {
-        set_error_handler([$this, 'errors']);
+        if (is_null($level)) {
+            set_error_handler([$this, 'errors']);
+        } else {
+            set_error_handler([$this, 'errors'], $level);
+        }
+
         set_exception_handler([$this, 'throwables']);
+
+        unset($level);
     }
 
     /**
@@ -56,16 +65,19 @@ class Error
      * @param string $core Корень приложения (абсолютный путь)
      * @param string $path Путь относительно корня приложения
      * @param string $file Имя файла для записи лога
+     * @param int|null $level (optional) Уровень перехвата ошибок
      * @return self Модифицированный текущий объект
      */
-    public static function catch(string $core, string $path, string $file): self
+    public static function catch(
+        string $core, string $path, string $file, ?int $level = null
+    ): self
     {
         if (is_null(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = new self($level);
 
-            self::$instance->core = $core;
-            self::$instance->path = $path;
-            self::$instance->file = $file;
+            self::$instance->core  = $core;
+            self::$instance->path  = $path;
+            self::$instance->file  = $file;
 
             self::$instance->logger = new Logger(self::$instance->core);
 
@@ -78,7 +90,7 @@ class Error
                 );
         }
 
-        unset($core, $path, $file);
+        unset($core, $path, $file, $level);
 
         return self::$instance;
     }
