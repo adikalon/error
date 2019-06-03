@@ -126,10 +126,10 @@ class Error
     /**
      * Обработчик исключений
      * 
-     * @param Exception $exception Объект, унаследованный от Exception
+     * @param $exception Исключение
      * @return void
      */
-    public function throwables(Exception $exception): void
+    public function throwables($exception): void
     {
         $message = '';
         $stack   = [];

@@ -50,7 +50,7 @@ throw new Exception('Исключение');
   
 **errors(int $number, string $text, string $file, int $line): void  
 и  
-throwables(Exception $exception): void**  
+throwables($exception): void**  
 Не предназначены для ручного вызова. Реализуют методы-перехватчики для PHP  
 функций: set_error_handler() и set_exception_handler(). Если необходимо  
 изменить формат отображение информации об ошибке, их можно переопределить.  
